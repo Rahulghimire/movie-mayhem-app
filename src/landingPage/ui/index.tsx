@@ -1,5 +1,11 @@
+import { PopularMovies } from "@/components/popularMovies";
+
 export const LandingPage: React.FC = () => {
-  return <div>Hello world </div>;
+  return (
+    <>
+      <PopularMovies />
+    </>
+  );
 };
 
 export default LandingPage;
