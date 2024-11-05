@@ -115,9 +115,7 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
           Divider: {
             lineWidth: 1,
           },
-          Progress: {
-            remainingColor: "#8c8c8c",
-          },
+
           Button: {
             primaryShadow: "none",
             colorBgContainerDisabled: "rgba(0, 0, 0, 0.04)",
@@ -132,7 +130,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             linkColor: "white",
             separatorColor: "white",
           },
-
           Typography: {
             lineHeight: 1.35,
           },
