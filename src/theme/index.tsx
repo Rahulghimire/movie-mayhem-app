@@ -30,7 +30,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
           },
           Menu: {
             colorPrimary: "#E95929",
-            // itemSelectedBg: "rgba(19, 178, 204, 0.2)",
             itemHoverBg: "rgba(19, 178, 204, 0.2)",
             itemHoverColor: "#E95929",
             itemHeight: 35,
@@ -80,19 +79,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             itemPaddingBottom: 4,
           },
 
-          Switch: {
-            trackHeight: 14,
-            trackMinWidth: 30,
-            handleSize: 10,
-            colorBgBase: "red",
-          },
-
-          Checkbox: {
-            colorBgContainer: "#2b2a2a",
-            controlInteractiveSize: 16,
-            colorPrimary: "#2cac87",
-            colorPrimaryHover: "#6ec7ad",
-          },
           Table: {
             headerSplitColor: "none",
             cellPaddingInline: 5,
@@ -105,7 +91,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             colorBgContainer: "#383838",
             headerBg: "#555555",
           },
-
           Pagination: {
             itemActiveBg: "#292561",
             colorPrimary: "#ffffff",
@@ -132,9 +117,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
           },
           Typography: {
             lineHeight: 1.35,
-          },
-          Modal: {
-            colorBgMask: "rgba(255,255,255,0.1)",
           },
         },
       }}

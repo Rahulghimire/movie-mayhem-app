@@ -2,21 +2,28 @@ import React from "react";
 import { List, Card, Typography } from "antd";
 import { useFetchPopularMovies } from "@/services/api-hooks";
 import MovieSearch from "../search";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Paragraph } = Typography;
 
 export const PopularMovies: React.FC = () => {
   const { data, isLoading } = useFetchPopularMovies();
+  const navigate = useNavigate();
 
   return (
     <>
-      <div>
+      <div className="py-3">
         <MovieSearch />
       </div>
-      <div>
-        <Title level={2} style={{ color: "#292561" }}>
-          Popular Movies
-        </Title>
+      <div
+        style={{
+          backgroundColor: "#3E444E",
+          color: "#fff",
+          minHeight: "100vh",
+          padding: "20px 0",
+        }}
+      >
+        <Title level={2}>Popular Movies</Title>
         <List
           grid={{
             gutter: 16,
@@ -33,6 +40,7 @@ export const PopularMovies: React.FC = () => {
             <List.Item>
               <Card
                 hoverable
+                onClick={() => navigate(`/movies/${movie.id}`)}
                 cover={
                   <img
                     alt={movie.title}
