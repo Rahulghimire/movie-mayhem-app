@@ -2,8 +2,13 @@ const apiKey = import.meta.env.VITE_API_API_KEY;
 
 import { axiosInstance } from "@/axios";
 import { queryKeys } from "@/axios/queryKeys";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { MovieResponseProps } from "./types";
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from "@tanstack/react-query";
+import { MovieCollectionProps, MovieResponseProps } from "./types";
 
 export const useFetchPopularMovies = (): UseQueryResult<MovieResponseProps> => {
   return useQuery<MovieResponseProps>({
@@ -12,6 +17,24 @@ export const useFetchPopularMovies = (): UseQueryResult<MovieResponseProps> => {
       axiosInstance
         .get<MovieResponseProps>(`/movie/popular?api_key=${apiKey}`)
         .then((res) => res.data),
+  });
+};
+
+export const useFetchMovieDetails = (): UseMutationResult<
+  MovieCollectionProps,
+  Error,
+  string
+> => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await axiosInstance.get(`/movie/${id}`, {
+        params: {
+          api_key: apiKey,
+          // collection_id: id,
+        },
+      });
+      return response.data;
+    },
   });
 };
 
