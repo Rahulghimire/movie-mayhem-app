@@ -1,7 +1,7 @@
 import { removeMovieNight } from "@/redux/slices/MovieNightSlice";
 import { RootState } from "@/redux/Store";
 import { EyeOutlined } from "@ant-design/icons";
-import { Button, Divider, Drawer } from "antd";
+import { Button, Drawer, Empty } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,7 +34,7 @@ export const MovieNightList: React.FC = () => {
         icon={<EyeOutlined />}
         onClick={showDrawer}
       >
-        View List
+        View
       </Button>
       <Drawer
         title="Movie Night List"
@@ -43,25 +43,27 @@ export const MovieNightList: React.FC = () => {
         onClose={onClose}
         open={open}
       >
-        <ul className="space-y-2">
-          {movieNights.map((movie) => (
-            <li
-              key={movie.id}
-              className="flex justify-between items-center border-b pb-2"
-            >
-              <span>{movie.title}</span>
-              <Button
-                size="small"
-                danger
-                onClick={() => handleRemove(movie.id)}
+        {movieNights.length > 0 ? (
+          <ul className="space-y-2">
+            {movieNights?.map((movie) => (
+              <li
+                key={movie.id}
+                className="flex justify-between items-center border-b pb-2"
               >
-                Remove
-              </Button>
-            </li>
-          ))}
-        </ul>
-        <Divider className="!my-3 !p-0" />
-        <Button onClick={onClose}>Cancel</Button>
+                <span>{movie.title}</span>
+                <Button
+                  size="small"
+                  danger
+                  onClick={() => handleRemove(movie.id)}
+                >
+                  Remove
+                </Button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Empty />
+        )}
       </Drawer>
     </>
   );

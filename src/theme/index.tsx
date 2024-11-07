@@ -87,6 +87,7 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             colorBgContainerDisabled: "rgba(0, 0, 0, 0.04)",
             paddingInline: 8,
             lineWidthFocus: 2,
+            controlHeight: 26,
           },
 
           Drawer: {

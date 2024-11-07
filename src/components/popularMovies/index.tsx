@@ -36,7 +36,11 @@ export const PopularMovies: React.FC = () => {
             }}
             loading={isLoading}
             dataSource={data?.results || []}
-            pagination={{ position: "bottom", align: "center" }}
+            pagination={
+              data?.results?.length
+                ? { position: "bottom", align: "center" }
+                : false
+            }
             renderItem={(movie: any) => (
               <List.Item>
                 <Card
