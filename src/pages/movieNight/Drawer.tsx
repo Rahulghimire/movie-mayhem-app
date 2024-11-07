@@ -7,7 +7,7 @@ import { addMovieNight } from "@/redux/slices/MovieNightSlice";
 export const AddDrawer: React.FC = () => {
   const [open, setOpen] = useState(false);
 
-  const form = Form.useFormInstance();
+  const [form] = Form.useForm();
 
   const dispatch = useDispatch();
 
@@ -23,6 +23,7 @@ export const AddDrawer: React.FC = () => {
 
   const onClose = () => {
     setOpen(false);
+    form.resetFields();
   };
 
   return (
@@ -33,7 +34,7 @@ export const AddDrawer: React.FC = () => {
         icon={<PlusCircleOutlined />}
         onClick={showDrawer}
       >
-        Add Movie Night
+        Add Movie
       </Button>
       <Drawer
         title="Add New Movie Night"
@@ -51,6 +52,7 @@ export const AddDrawer: React.FC = () => {
           <Form.Item
             label="Movie Title"
             name="title"
+            initialValue={""}
             rules={[{ required: true, message: "Please enter a movie title" }]}
           >
             <Input placeholder="Enter movie title" />
