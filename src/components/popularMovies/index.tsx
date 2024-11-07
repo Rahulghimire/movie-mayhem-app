@@ -15,11 +15,10 @@ export const PopularMovies: React.FC = () => {
       <MovieSearch />
       <div className="bg-[#141414]">
         <div
-          className="m-1 md:mx-3 md:mt-5"
+          className="p-1 md:px-3 md:pt-5"
           style={{
             color: "#fff",
             minHeight: "100vh",
-            padding: "20px 0",
           }}
         >
           <Title level={2} className="mb-1">
