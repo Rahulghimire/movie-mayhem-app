@@ -3,11 +3,11 @@ import { List, Card, Typography } from "antd";
 import { useFetchPopularMovies } from "@/services/api-hooks";
 import MovieSearch from "../search";
 import { useNavigate } from "react-router-dom";
-
 const { Title, Paragraph } = Typography;
 
 export const PopularMovies: React.FC = () => {
   const { data, isLoading } = useFetchPopularMovies();
+
   const navigate = useNavigate();
 
   return (
@@ -22,7 +22,9 @@ export const PopularMovies: React.FC = () => {
             padding: "20px 0",
           }}
         >
-          <Title level={2}>Popular Movies</Title>
+          <Title level={2} className="mb-1">
+            Popular Movies
+          </Title>
           <List
             grid={{
               gutter: 16,
@@ -39,23 +41,23 @@ export const PopularMovies: React.FC = () => {
               <List.Item>
                 <Card
                   hoverable
-                  onClick={() => navigate(`/movies/${movie.id}`)}
+                  onClick={() => navigate(`/movies/${movie?.id}`)}
                   cover={
                     <img
-                      alt={movie.title}
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      alt={movie?.title}
+                      src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
                       style={{ borderRadius: "10px" }}
                     />
                   }
                 >
                   <Card.Meta
-                    title={movie.title}
+                    title={movie?.title}
                     description={
                       <>
                         <Paragraph>
-                          Release Date: {movie.release_date}
+                          Release Date: {movie?.release_date}
                         </Paragraph>
-                        <Paragraph>Rating: {movie.vote_average}</Paragraph>
+                        <Paragraph>Rating: {movie?.vote_average}</Paragraph>
                         <Paragraph
                           style={{
                             maxWidth: "300px",
@@ -64,7 +66,7 @@ export const PopularMovies: React.FC = () => {
                             whiteSpace: "nowrap",
                           }}
                         >
-                          {movie.overview}
+                          {movie?.overview}
                         </Paragraph>
                       </>
                     }

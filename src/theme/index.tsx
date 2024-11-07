@@ -22,7 +22,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
         },
         components: {
           Form: {
-            labelColor: "#292561",
             verticalLabelPadding: "0 0 0px !important",
             paddingContentVertical: 30,
           },
