@@ -21,21 +21,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
           boxShadow: "none",
         },
         components: {
-          Layout: {
-            headerHeight: 40,
-            headerPadding: 0,
-            headerBg: "#292929",
-            bodyBg: "#292929",
-            siderBg: "#292929",
-          },
-          Menu: {
-            colorPrimary: "#E95929",
-            itemHoverBg: "rgba(19, 178, 204, 0.2)",
-            itemHoverColor: "#E95929",
-            itemHeight: 35,
-            subMenuItemBg: "#333333",
-            colorBgContainer: "#292929",
-          },
           Form: {
             labelColor: "#292561",
             verticalLabelPadding: "0 0 0px !important",
@@ -47,8 +32,8 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             colorBgContainerDisabled: "#555555",
             colorTextDisabled: "#000000",
             colorBgContainer: "#2b2a2a",
+            controlHeight: 32,
           },
-
           Select: {
             optionPadding: "5px 12px",
             paddingSM: 5,
@@ -68,9 +53,6 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             actionsLiMargin: "4px",
             padding: 10,
             paddingLG: 10,
-          },
-          Popover: {
-            colorBgElevated: "#1a1a1a",
           },
           Dropdown: {
             paddingBlock: 1,
@@ -107,14 +89,11 @@ export const AppThemeProvider: React.FC<Props> = (props) => {
             paddingInline: 8,
             lineWidthFocus: 2,
           },
+
           Drawer: {
             paddingLG: 10,
           },
-          Breadcrumb: {
-            itemColor: "white",
-            linkColor: "white",
-            separatorColor: "white",
-          },
+
           Typography: {
             lineHeight: 1.35,
           },

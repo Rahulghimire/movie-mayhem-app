@@ -1,4 +1,5 @@
 import { useSearchMovies } from "@/services/api-hooks";
+import { SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Input } from "antd";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +14,9 @@ const MovieSearch: React.FC = () => {
 
   const options =
     data?.results.map((movie: any) => ({
-      value: movie.title,
-      key: movie.id,
-      url: `/movies/${movie.id}`,
+      value: movie?.title,
+      key: movie?.id,
+      url: `/movies/${movie?.id}`,
     })) || [];
 
   const handleSearch = (value: string) => {
@@ -34,16 +35,21 @@ const MovieSearch: React.FC = () => {
   };
 
   return (
-    <AutoComplete
-      options={options}
-      onSearch={handleSearch}
-      style={{ width: "100%" }}
-      onSelect={handleSelect}
-      placeholder="Search for movies"
-      //   loading={isLoading}
-    >
-      <Input />
-    </AutoComplete>
+    <div className="m-1 md:mx-3 md:p-3">
+      <div className="flex justify-center">
+        <AutoComplete
+          options={options}
+          onSearch={handleSearch}
+          style={{ width: "50%" }}
+          onSelect={handleSelect}
+          placeholder="Search for movies"
+          suffixIcon={<SearchOutlined className="text-lg mt-2" />}
+          //   loading={isLoading}
+        >
+          <Input />
+        </AutoComplete>
+      </div>
+    </div>
   );
 };
 

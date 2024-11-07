@@ -1,30 +1,14 @@
-// import { useFetchMovieDetails } from "@/services/api-hooks";
-// import React, { useEffect } from "react";
-// import { useParams } from "react-router-dom";
-
-// export const MovieDetails: React.FC = () => {
-//   const { id } = useParams<Record<string, string | undefined>>();
-
-//   const { mutate, data, isLoading } = useFetchMovieDetails();
-
-//   useEffect(() => {
-//     if (id) {
-//       mutate(id);
-//     }
-//   }, [id]);
-
-//   return <div>{id}</div>;
-// };
-
-// export default MovieDetails;
-
 import { useFetchMovieDetails } from "@/services/api-hooks";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ProductionCompanies } from "./ProductionCompany";
-import { formatCurrency } from "./helpers";
+import { formatCurrency } from "../helpers";
+import PartOfCollection from "./Collection";
+import { Genres } from "./Genres";
+import { SimilarMovies } from "@/pages/similarMovies/ui";
 
 const MovieDetails = () => {
+  const imageBaseUrl = "https://image.tmdb.org/t/p/original";
   const { id } = useParams<Record<string, string | undefined>>();
   const { mutate, data, isPending } = useFetchMovieDetails();
 
@@ -45,8 +29,6 @@ const MovieDetails = () => {
   if (!data) {
     return null;
   }
-
-  const imageBaseUrl = "https://image.tmdb.org/t/p/original";
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -101,19 +83,7 @@ const MovieDetails = () => {
               </div>
             </div>
 
-            <div className="mb-6">
-              <h3 className="font-bold text-gray-900 mb-2">Genres</h3>
-              <div className="flex flex-wrap gap-2">
-                {data?.genres?.map((genre) => (
-                  <span
-                    key={genre.id}
-                    className="bg-gray-200 px-3 py-1 rounded-full text-sm"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <Genres genres={data?.genres} />
 
             <ProductionCompanies
               production_companies={data?.production_companies}
@@ -121,26 +91,14 @@ const MovieDetails = () => {
             />
 
             {data?.belongs_to_collection && (
-              <div>
-                <h3 className="font-bold text-gray-900 mb-2">
-                  Part of Collection
-                </h3>
-                <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg">
-                  <img
-                    src={`${imageBaseUrl}${data.belongs_to_collection.poster_path}`}
-                    alt={data.belongs_to_collection.name}
-                    className="w-20 rounded"
-                  />
-                  <div>
-                    <p className="font-semibold">
-                      {data.belongs_to_collection.name}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <PartOfCollection
+                collection={data.belongs_to_collection}
+                imageBaseUrl={imageBaseUrl}
+              />
             )}
           </div>
         </div>
+        <SimilarMovies />
       </div>
     </div>
   );

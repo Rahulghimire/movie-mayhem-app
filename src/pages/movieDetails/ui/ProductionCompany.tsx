@@ -1,15 +1,15 @@
 import React from "react";
-import { ProductionCompany } from "./types";
+import { ProductionCompany } from "../types";
 
 interface ProductionCompaniesProps {
   production_companies: ProductionCompany[];
   imageBaseUrl: string;
 }
 
-export const ProductionCompanies: React.FC<ProductionCompaniesProps> = ({
-  production_companies,
-  imageBaseUrl,
-}) => {
+export const ProductionCompanies: React.FC<ProductionCompaniesProps> = (
+  props
+) => {
+  const { production_companies, imageBaseUrl } = props;
   return (
     <div className="mb-6">
       <h3 className="font-bold text-gray-900 mb-2">Production Companies</h3>

@@ -8,7 +8,11 @@ import {
   useQuery,
   UseQueryResult,
 } from "@tanstack/react-query";
-import { MovieCollectionProps, MovieResponseProps } from "./types";
+import {
+  MovieCollectionProps,
+  MovieResponseProps,
+  SimilarMovieProps,
+} from "./types";
 
 export const useFetchPopularMovies = (): UseQueryResult<MovieResponseProps> => {
   return useQuery<MovieResponseProps>({
@@ -17,6 +21,27 @@ export const useFetchPopularMovies = (): UseQueryResult<MovieResponseProps> => {
       axiosInstance
         .get<MovieResponseProps>(`/movie/popular?api_key=${apiKey}`)
         .then((res) => res.data),
+  });
+};
+
+export const useFetchSimilarMovies = (): UseMutationResult<
+  SimilarMovieProps,
+  Error,
+  string
+> => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await axiosInstance.get<SimilarMovieProps>(
+        `/movie/${id}/similar`,
+        {
+          params: {
+            api_key: apiKey,
+            // collection_id: id,
+          },
+        }
+      );
+      return response.data;
+    },
   });
 };
 

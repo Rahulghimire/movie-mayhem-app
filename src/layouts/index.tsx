@@ -23,14 +23,10 @@ export const Layout: React.FC = () => {
 
   return (
     <>
-      <header className="py-4 md:mx-[95px] md:px-3">
+      <div></div>
+      <Affix offsetTop={0} className="relative z-[50]">
         <AppHeader />
-      </header>
-      <Affix
-        offsetTop={0}
-        className="relative z-[50]"
-        children={undefined}
-      ></Affix>
+      </Affix>
       <Outlet />
       {/* <Footer /> */}
       <div className="text-center py-[20px]">
