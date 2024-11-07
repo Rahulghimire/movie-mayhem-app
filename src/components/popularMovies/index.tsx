@@ -1,14 +1,28 @@
 import React from "react";
-import { List, Card, Typography } from "antd";
+import { List, Card, Typography, Popover, notification } from "antd";
 import { useFetchPopularMovies } from "@/services/api-hooks";
 import MovieSearch from "../search";
 import { useNavigate } from "react-router-dom";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { addMovieNight } from "@/redux/slices/MovieNightSlice";
+import { useDispatch } from "react-redux";
 const { Title, Paragraph } = Typography;
 
 export const PopularMovies: React.FC = () => {
   const { data, isLoading } = useFetchPopularMovies();
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  const showSuccessNotification = (title: string) => {
+    notification.success({
+      message: "Success",
+      description: `The movie "${title}" has been successfully added to the list.`,
+      placement: "topRight",
+      duration: 2,
+    });
+  };
 
   return (
     <>
@@ -44,19 +58,46 @@ export const PopularMovies: React.FC = () => {
               <List.Item>
                 <Card
                   hoverable
-                  onClick={() => navigate(`/movies/${movie?.id}`)}
                   cover={
-                    <img
-                      alt={movie?.title}
-                      src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
-                      style={{ borderRadius: "10px" }}
-                    />
+                    <>
+                      <img
+                        alt={movie?.title}
+                        onClick={() => navigate(`/movies/${movie?.id}`)}
+                        src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
+                        style={{ borderRadius: "10px" }}
+                      />
+                    </>
                   }
                 >
                   <Card.Meta
-                    title={movie?.title}
-                    description={
+                    title={
                       <>
+                        {movie?.title}
+                        <span className="px-2">
+                          <Popover
+                            trigger="click"
+                            content={
+                              <div
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  dispatch(addMovieNight(movie));
+                                  showSuccessNotification(movie?.title);
+                                }}
+                              >
+                                <PlusCircleFilled className="text-[12px]" />
+                                <span className="px-2">
+                                  Add to Movie Night List
+                                </span>
+                              </div>
+                            }
+                          >
+                            <PlusCircleFilled />
+                          </Popover>
+                        </span>
+                      </>
+                    }
+                    description={
+                      <div onClick={() => navigate(`/movies/${movie?.id}`)}>
                         <Paragraph>
                           Release Date: {movie?.release_date}
                         </Paragraph>
@@ -71,7 +112,7 @@ export const PopularMovies: React.FC = () => {
                         >
                           {movie?.overview}
                         </Paragraph>
-                      </>
+                      </div>
                     }
                   />
                 </Card>
