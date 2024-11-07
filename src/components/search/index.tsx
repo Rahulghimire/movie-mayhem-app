@@ -13,7 +13,7 @@ const MovieSearch: React.FC = () => {
   const timeoutRef = useRef<number | null>(null);
 
   const options =
-    data?.results.map((movie: any) => ({
+    data?.results?.map((movie: any) => ({
       value: movie?.title,
       key: movie?.id,
       url: `/movies/${movie?.id}`,
