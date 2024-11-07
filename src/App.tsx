@@ -3,14 +3,17 @@ import "./App.css";
 import { AppThemeProvider } from "./theme";
 import { router } from "./routing/routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import store, { persistor } from "./redux/Store";
+import { ErrorBoundary, FallbackProps } from "react-error-boundary";
+import { ErrorFallback } from "./routing/lazyImport";
 
-// Define query client with default options
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       retry: (failureCount: number, error: any) => {
-        // Customize retry behavior based on error response
         if (
           error?.response?.status === 401 ||
           error?.response?.status === 403
@@ -19,33 +22,30 @@ const queryClient = new QueryClient({
         }
         return failureCount < 1;
       },
-      // onError: (err) => {
-      //   // Notifications(
-      //   //   "Error",
-      //   //   `${(err as any)?.response?.data?.message}`,
-      //   //   "error"
-      //   // );
-      // },
     },
-    mutations: {
-      // onError: (err) => {
-      //   // Notifications(
-      //   //   "Error",
-      //   //   `${(err as any)?.response?.data?.message}`,
-      //   //   "error"
-      //   // );
-      // },
-    },
+    mutations: {},
   },
 });
 
 export const App: React.FC = () => {
+  const ErrorFallbackComponent: React.FC<FallbackProps> = () => (
+    <ErrorFallback />
+  );
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppThemeProvider>
-        <RouterProvider router={router} />
-      </AppThemeProvider>
-    </QueryClientProvider>
+    <>
+      <ErrorBoundary FallbackComponent={ErrorFallbackComponent}>
+        <Provider store={store}>
+          <PersistGate loading={"loading ... "} persistor={persistor}>
+            <QueryClientProvider client={queryClient}>
+              <AppThemeProvider>
+                <RouterProvider router={router} />
+              </AppThemeProvider>
+            </QueryClientProvider>
+          </PersistGate>
+        </Provider>
+      </ErrorBoundary>
+    </>
   );
 };
 

@@ -40,7 +40,7 @@ const MovieSearch: React.FC = () => {
         <AutoComplete
           options={options}
           onSearch={handleSearch}
-          style={{ width: "50%" }}
+          style={{ width: "33%" }}
           onSelect={handleSelect}
           placeholder="Search for movies"
           suffixIcon={<SearchOutlined className="text-lg mt-2" />}
