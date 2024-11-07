@@ -34,7 +34,7 @@ export const MovieNightList: React.FC = () => {
         icon={<EyeOutlined />}
         onClick={showDrawer}
       >
-        View List
+        View
       </Button>
       <Drawer
         title="Movie Night List"
